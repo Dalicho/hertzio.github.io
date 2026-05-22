@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HERTZIO — Tecnología & Comercio</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #162c44;
+    --navy-dark: #0d1d2e;
+    --navy-light: #1e3a57;
+    --orange: #e07820;
+    --orange-light: #f08c30;
+    --orange-pale: #fdf0e0;
+    --white: #ffffff;
+    --gray-light: #f5f5f3;
+    --gray-mid: #8a9ab0;
+    --text: #1a2b3c;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    background: rgba(22,44,68,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(224,120,32,0.2);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+  }
+
+  .nav-logo img {
+    height: 42px;
+    filter: brightness(0) invert(1);
+  }
+
+  .nav-links {
+    display: flex; gap: 40px; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--orange-light); }
+
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    padding: 10px 24px;
+    background: var(--orange);
+    color: var(--white);
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .nav-cta:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #inicio {
+    min-height: 100vh;
+    background: var(--navy-dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-top: 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(224,120,32,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(224,120,32,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-bg-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(224,120,32,0.12) 0%, transparent 70%);
+    right: -100px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    padding: 80px 0 80px 10%;
+    position: relative; z-index: 2;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    border: 1px solid rgba(224,120,32,0.4);
+    padding: 6px 16px;
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 800;
+    line-height: 0.9;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero-title span { color: var(--orange); }
+
+  .hero-subtitle {
+    font-size: 17px; font-weight: 300; line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    margin-bottom: 44px;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    padding: 16px 36px;
+    background: var(--orange);
+    color: var(--white);
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    padding: 15px 36px;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+  .hero-visual {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 2;
+    padding: 60px 10% 60px 0;
+  }
+
+  .hero-logo-wrap {
+    position: relative;
+  }
+
+  .hero-logo-ring {
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    border: 1px solid rgba(224,120,32,0.2);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+
+  .hero-logo-ring::before {
+    content: '';
+    position: absolute; inset: 20px;
+    border-radius: 50%;
+    border: 1px dashed rgba(224,120,32,0.15);
+  }
+
+  .hero-logo-ring img {
+    width: 200px;
+    filter: drop-shadow(0 0 30px rgba(224,120,32,0.3));
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .hero-stats {
+    display: flex; gap: 0;
+    margin-top: 48px;
+  }
+
+  .stat {
+    flex: 1;
+    padding: 0 24px 0 0;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat:last-child { border-right: none; padding-left: 24px; padding-right: 0; }
+  .stat:first-child { padding-left: 0; }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 36px; font-weight: 800;
+    color: var(--orange);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px; color: rgba(255,255,255,0.45);
+    margin-top: 4px; font-weight: 300;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 10%; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800; text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1.0;
+    margin-bottom: 20px;
+  }
+
+  .section-title span { color: var(--orange); }
+
+  .section-body {
+    font-size: 16px; font-weight: 300; line-height: 1.8;
+    color: #5a6a7e;
+    max-width: 560px;
+  }
+
+  /* ── SERVICIOS ── */
+  #servicios { background: var(--gray-light); }
+
+  .servicios-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: end;
+    margin-bottom: 64px;
+  }
+
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .servicio-card {
+    background: var(--white);
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: default;
+  }
+
+  .servicio-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+
+  .servicio-card:hover { transform: translateY(-4px); }
+  .servicio-card:hover::before { transform: scaleX(1); }
+
+  .servicio-icon {
+    width: 52px; height: 52px;
+    background: var(--orange-pale);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .servicio-icon svg { width: 26px; height: 26px; stroke: var(--orange); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .servicio-num {
+    position: absolute; top: 24px; right: 28px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 52px; font-weight: 800;
+    color: rgba(22,44,68,0.04);
+    line-height: 1;
+  }
+
+  .servicio-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.03em;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .servicio-desc {
+    font-size: 14px; font-weight: 300; line-height: 1.7;
+    color: #6b7c90;
+  }
+
+  /* ── NOSOTROS ── */
+  #nosotros {
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  #nosotros .section-title { color: var(--white); }
+  #nosotros .section-body { color: rgba(255,255,255,0.55); }
+
+  .nosotros-values {
+    margin-top: 48px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+
+  .value-item {
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+
+  .value-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--orange);
+    margin-top: 2px;
+    min-width: 24px;
+  }
+
+  .value-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .value-desc {
+    font-size: 14px; font-weight: 300; line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .nosotros-visual {
+    position: relative;
+  }
+
+  .nosotros-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(224,120,32,0.2);
+    padding: 48px;
+    position: relative;
+  }
+
+  .nosotros-card::after {
+    content: '';
+    position: absolute; top: 16px; left: 16px; right: -16px; bottom: -16px;
+    border: 1px solid rgba(224,120,32,0.1);
+    pointer-events: none;
+  }
+
+  .nosotros-logo {
+    width: 80px;
+    margin-bottom: 32px;
+    filter: brightness(0) invert(1);
+  }
+
+  .nosotros-quote {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 400;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+    border-left: 3px solid var(--orange);
+    padding-left: 20px;
+  }
+
+  /* ── CONTACTO ── */
+  #contacto { background: var(--white); }
+
+  .contacto-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-form {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .form-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+
+  .form-field {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+
+  .form-field label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px; font-weight: 300;
+    padding: 14px 16px;
+    border: 1px solid #dde3ea;
+    background: var(--white);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus {
+    border-color: var(--orange);
+  }
+
+  .form-field textarea {
+    resize: vertical; min-height: 120px;
+  }
+
+  .contact-info {
+    padding-top: 8px;
+  }
+
+  .contact-info-item {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 24px 0;
+    border-bottom: 1px solid #eef0f3;
+  }
+
+  .contact-info-item:first-child { padding-top: 0; }
+  .contact-info-item:last-child { border-bottom: none; }
+
+  .contact-icon {
+    width: 44px; height: 44px; min-width: 44px;
+    background: var(--orange-pale);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .contact-icon svg { width: 20px; height: 20px; stroke: var(--orange); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .contact-info-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 4px;
+  }
+
+  .contact-info-value {
+    font-size: 15px; font-weight: 400;
+    color: var(--navy);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy-dark);
+    padding: 48px 10%;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
+  }
+
+  .footer-logo img {
+    height: 40px;
+    filter: brightness(0) invert(1) opacity(0.6);
+  }
+
+  .footer-copy {
+    font-size: 13px; font-weight: 300;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .footer-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(255,255,255,0.35);
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--orange); }
+
+  /* ── DIVIDER LINE ── */
+  .orange-line {
+    width: 48px; height: 3px;
+    background: var(--orange);
+    margin-bottom: 24px;
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── NOTIFICATION ── */
+  .toast {
+    display: none;
+    position: fixed; bottom: 32px; right: 32px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 16px 24px;
+    font-size: 14px;
+    border-left: 3px solid var(--orange);
+    z-index: 999;
+    animation: slidein 0.3s ease;
+  }
+
+  @keyframes slidein {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #inicio { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .hero-content { padding: 60px 6%; }
+    .servicios-header { grid-template-columns: 1fr; }
+    .servicios-grid { grid-template-columns: 1fr; }
+    #nosotros { grid-template-columns: 1fr; }
+    .contacto-inner { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    section { padding: 72px 6%; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="36" height="44" viewBox="0 0 80 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="40" cy="36" rx="36" ry="36" stroke="white" stroke-width="3" fill="none"/>
+      <rect x="28" y="22" width="8" height="28" fill="#e07820"/>
+      <rect x="36" y="16" width="8" height="34" fill="#f08c30"/>
+      <rect x="44" y="20" width="8" height="30" fill="#e07820"/>
+      <line x1="40" y1="72" x2="40" y2="88" stroke="white" stroke-width="3"/>
+      <line x1="28" y1="88" x2="52" y2="88" stroke="white" stroke-width="3"/>
+    </svg>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:white;letter-spacing:0.04em;line-height:1;">HERTZIO</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:400;color:rgba(255,255,255,0.5);letter-spacing:0.12em;text-transform:uppercase;">Tecnología & Comercio</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Cotizar</a>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-bg-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Instalaciones Eléctricas</div>
+    <h1 class="hero-title">
+      Potencia<br>
+      que <span>conecta</span><br>
+      tu mundo
+    </h1>
+    <p class="hero-subtitle">
+      Soluciones eléctricas industriales y residenciales con la más alta calidad, seguridad y tecnología. Tu proyecto, nuestra responsabilidad.
+    </p>
+    <div class="hero-buttons">
+      <a href="#servicios" class="btn-primary">Ver servicios</a>
+      <a href="#contacto" class="btn-outline">Contáctanos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">+14</div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Trabajos garantizados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">EC</div>
+        <div class="stat-label">Cobertura nacional</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-logo-ring">
+      <svg width="200" height="240" viewBox="0 0 80 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="40" cy="36" rx="34" ry="34" stroke="#e07820" stroke-width="2.5" fill="none"/>
+        <ellipse cx="40" cy="36" rx="26" ry="26" stroke="rgba(224,120,32,0.2)" stroke-width="1" fill="none"/>
+        <rect x="26" y="20" width="9" height="30" rx="1" fill="#e07820"/>
+        <rect x="35.5" y="13" width="9" height="37" rx="1" fill="#f08c30"/>
+        <rect x="45" y="18" width="9" height="32" rx="1" fill="#e07820"/>
+        <line x1="40" y1="70" x2="40" y2="86" stroke="white" stroke-width="3"/>
+        <line x1="26" y1="86" x2="54" y2="86" stroke="white" stroke-width="3"/>
+        <circle cx="40" cy="86" r="3" fill="#e07820"/>
+        <text x="10" y="108" font-family="'Barlow Condensed',sans-serif" font-size="16" font-weight="800" fill="white" letter-spacing="1">HERTZIO</text>
+        <text x="5" y="118" font-family="'Barlow Condensed',sans-serif" font-size="6.5" fill="rgba(255,255,255,0.5)" letter-spacing="1.5">TECNOLOGÍA &amp; COMERCIO</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="servicios-header">
+    <div>
+      <div class="section-tag">Lo que hacemos</div>
+      <div class="orange-line"></div>
+      <h2 class="section-title">Nuestros<br><span>Servicios</span></h2>
+    </div>
+    <p class="section-body">
+      Ofrecemos un servicio integral de instalaciones eléctricas adaptado a cada necesidad, desde proyectos residenciales hasta industriales de alta complejidad.
+    </p>
+  </div>
+
+  <div class="servicios-grid">
+    <div class="servicio-card reveal">
+      <span class="servicio-num">01</span>
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="servicio-title">Instalaciones Residenciales</div>
+      <p class="servicio-desc">Instalación y mantenimiento de sistemas eléctricos en viviendas, con materiales certificados y mano de obra especializada.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <span class="servicio-num">02</span>
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+      </div>
+      <div class="servicio-title">Instalaciones Industriales</div>
+      <p class="servicio-desc">Soluciones eléctricas para plantas, bodegas y espacios comerciales con altos estándares de seguridad y eficiencia energética.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <span class="servicio-num">03</span>
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="servicio-title">Mantenimiento Eléctrico</div>
+      <p class="servicio-desc">Revisión, diagnóstico y mantenimiento preventivo y correctivo de sistemas eléctricos para garantizar su correcto funcionamiento.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <span class="servicio-num">04</span>
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M2 12h2m16 0h2M4.93 4.93l1.41 1.41M18.66 18.66l1.41 1.41M12 2v2m0 16v2"/></svg>
+      </div>
+      <div class="servicio-title">Tableros Eléctricos</div>
+      <p class="servicio-desc">Diseño, instalación y actualización de tableros de control eléctrico para uso doméstico, comercial e industrial.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <span class="servicio-num">05</span>
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      </div>
+      <div class="servicio-title">Redes y Cableado</div>
+      <p class="servicio-desc">Instalación de redes eléctricas, cableado estructurado y sistemas de distribución para edificios y conjuntos residenciales.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <span class="servicio-num">06</span>
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="servicio-title">Asesoría y Proyectos</div>
+      <p class="servicio-desc">Consultoría técnica, elaboración de planos eléctricos y acompañamiento desde el diseño hasta la ejecución de tu proyecto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div>
+    <div class="section-tag" style="color:rgba(224,120,32,0.9);">Quiénes somos</div>
+    <div class="orange-line"></div>
+    <h2 class="section-title">Sobre<br><span>HERTZIO</span></h2>
+    <p class="section-body" style="margin-bottom:0;">
+      Somos una empresa ecuatoriana especializada en soluciones de tecnología y comercio eléctrico, comprometida con la calidad, la puntualidad y la satisfacción de nuestros clientes.
+    </p>
+    <div class="nosotros-values">
+      <div class="value-item reveal">
+        <div class="value-num">01</div>
+        <div>
+          <div class="value-title">Calidad garantizada</div>
+          <div class="value-desc">Todos nuestros trabajos cumplen con las normativas eléctricas vigentes y utilizamos materiales de primera calidad.</div>
+        </div>
+      </div>
+      <div class="value-item reveal">
+        <div class="value-num">02</div>
+        <div>
+          <div class="value-title">Equipo certificado</div>
+          <div class="value-desc">Contamos con técnicos calificados y con amplia experiencia en el sector eléctrico residencial e industrial.</div>
+        </div>
+      </div>
+      <div class="value-item reveal">
+        <div class="value-num">03</div>
+        <div>
+          <div class="value-title">Compromiso y puntualidad</div>
+          <div class="value-desc">Cumplimos los plazos acordados y mantenemos comunicación transparente durante toda la ejecución del proyecto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nosotros-visual reveal">
+    <div class="nosotros-card">
+      <svg width="70" height="84" viewBox="0 0 80 96" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:32px;">
+        <ellipse cx="40" cy="36" rx="34" ry="34" stroke="#e07820" stroke-width="2.5" fill="none"/>
+        <rect x="26" y="20" width="9" height="30" rx="1" fill="#e07820"/>
+        <rect x="35.5" y="13" width="9" height="37" rx="1" fill="#f08c30"/>
+        <rect x="45" y="18" width="9" height="32" rx="1" fill="#e07820"/>
+        <line x1="40" y1="70" x2="40" y2="86" stroke="white" stroke-width="3"/>
+        <line x1="26" y1="86" x2="54" y2="86" stroke="white" stroke-width="3"/>
+        <circle cx="40" cy="86" r="3" fill="#e07820"/>
+      </svg>
+      <blockquote class="nosotros-quote">
+        "Conectamos tu visión con la energía que necesitas para hacerla realidad."
+      </blockquote>
+      <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:36px;">
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:#e07820;">+14</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.35);font-weight:300;margin-top:2px;">Años de experiencia en el mercado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-tag">Hablemos</div>
+  <div class="orange-line"></div>
+  <h2 class="section-title" style="margin-bottom:56px;">Contác<span>tanos</span></h2>
+  <div class="contacto-inner">
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre completo">
+        </div>
+        <div class="form-field">
+          <label>Teléfono</label>
+          <input type="tel" placeholder="+593 __ ___ ____">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Correo electrónico</label>
+        <input type="email" placeholder="correo@ejemplo.com">
+      </div>
+      <div class="form-field">
+        <label>Tipo de servicio</label>
+        <select>
+          <option value="">Selecciona un servicio</option>
+          <option>Instalaciones Residenciales</option>
+          <option>Instalaciones Industriales</option>
+          <option>Mantenimiento Eléctrico</option>
+          <option>Tableros Eléctricos</option>
+          <option>Redes y Cableado</option>
+          <option>Asesoría y Proyectos</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Mensaje</label>
+        <textarea placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+      </div>
+      <button class="btn-primary" onclick="sendForm()" style="align-self:flex-start;border:none;">Enviar mensaje</button>
+    </div>
+    <div class="contact-info reveal">
+      <div class="contact-info-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Teléfono</div>
+          <div class="contact-info-value">+593 999 694 047</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Correo</div>
+          <div class="contact-info-value">Por agregar</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Ubicación</div>
+          <div class="contact-info-value">Papallacta y Av. 10 de Agosto OE1-46<br><span style="font-size:13px;color:#8a9ab0;">Quito, Ecuador · CP 170512</span></div>
+        </div>
+      </div>
+      <div class="contact-info-item" style="border-bottom:none;">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Horario</div>
+          <div class="contact-info-value">Lun – Vie: 8:00 – 18:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="32" height="40" viewBox="0 0 80 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="40" cy="36" rx="34" ry="34" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" fill="none"/>
+      <rect x="26" y="20" width="9" height="30" rx="1" fill="rgba(224,120,32,0.6)"/>
+      <rect x="35.5" y="13" width="9" height="37" rx="1" fill="rgba(240,140,48,0.6)"/>
+      <rect x="45" y="18" width="9" height="32" rx="1" fill="rgba(224,120,32,0.6)"/>
+      <line x1="40" y1="70" x2="40" y2="86" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+      <line x1="26" y1="86" x2="54" y2="86" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+    </svg>
+  </div>
+  <p class="footer-copy">© 2025 HERTZIO Tecnología & Comercio. Todos los derechos reservados.</p>
+  <ul class="footer-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</footer>
+
+<div class="toast" id="toast">¡Mensaje enviado! Te contactaremos pronto.</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function sendForm() {
+    const toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 3500);
+  }
+</script>
+</body>
+</html>
